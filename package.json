@@ -1,0 +1,50 @@
+{
+  "name": "pm2-elasticsearch-logger",
+  "version": "1.0.0",
+  "description": "Send PM2 logs to Elasticsearch",
+  "main": "index.js",
+  "scripts": {
+    "test": "camo-purge; xo",
+    "lintfix": "xo --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hobbyquaker/pm2-elasticsearch-logger.git"
+  },
+  "keywords": [
+    "PM2",
+    "Elasticsearch",
+    "log"
+  ],
+  "config": {
+    "elasticUrl": "http://localhost:9200",
+    "index": "pm2",
+    "type": "pm2",
+    "host": "",
+    "insecure": false
+  },
+  "apps": [
+    {
+      "name": "pm2-elasticsearch-logger",
+      "script": "index.js"
+    }
+  ],
+  "author": "Sebastian Raff <hobbyquaker@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hobbyquaker/pm2-elasticsearch-logger/issues"
+  },
+  "homepage": "https://github.com/hobbyquaker/pm2-elasticsearch-logger#readme",
+  "dependencies": {
+    "pm2": "latest",
+    "pmx": "latest",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "camo-purge": "^1.0.2",
+    "xo": "^0.24.0"
+  },
+  "xo": {
+    "space": 4
+  }
+}
