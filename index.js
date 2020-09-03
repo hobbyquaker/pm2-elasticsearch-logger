@@ -1,7 +1,7 @@
 const os = require('os');
 const pmx = require('pmx');
 const pm2 = require('pm2');
-const request =	require('request');
+const request = require('request');
 
 pmx.initModule({}, (err, conf) => {
     if (err) {
@@ -13,7 +13,8 @@ pmx.initModule({}, (err, conf) => {
         type: conf.type || 'pm2',
         host: conf.host || os.hostname(),
         elasticUrl: conf.elasticUrl || 'http://localhost:9200',
-        insecure: conf.insecure || false
+        insecure: conf.insecure || false,
+        timestampInIndex: conf.timestampInIndex || true
     };
 
     let url;
@@ -27,7 +28,7 @@ pmx.initModule({}, (err, conf) => {
         };
         data.mappings[config.type] = {
             properties: {
-                '@timestamp': {type: 'date'}
+                '@timestamp': { type: 'date' }
             }
         };
         request.put({
@@ -58,7 +59,7 @@ pmx.initModule({}, (err, conf) => {
 
         const d = new Date();
         const date = d.getDate();
-        if (date !== currentDate) {
+        if (date !== currentDate && timestampInIndex) {
             const index = config.index + '-' + d.getFullYear() + '.' + ('0' + (d.getMonth() + 1)).substr(-2) + '.' + ('0' + date).substr(-2);
             console.log('sending logs to', config.elasticUrl + '/' + index + '/' + config.type);
             url = config.elasticUrl + '/' + index + '/' + config.type + '/';

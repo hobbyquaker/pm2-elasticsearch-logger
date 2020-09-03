@@ -31,6 +31,7 @@ PM2 will automatically restart the module after changing an option.
 | index | Elasticsearch index to use | `pm2` |
 | type | Document type to use | `pm2` |
 | host | `host` attribute of the document | `os.hostname()` |
+| timestampInIndex | `timestampInIndex` Append Timestamp to index | `true` |
 
 
 ## Todo, Ideas
