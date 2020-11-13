@@ -19,34 +19,11 @@ pmx.initModule({}, (err, conf) => {
     let url;
     let currentDate;
 
-    function createMapping() {
-        console.log('create mapping for field @timestamp');
-        const data = {
-            index_patterns: [config.index + '-*'], // eslint-disable-line camelcase
-            mappings: {}
-        };
-        data.mappings[config.type] = {
-            properties: {
-                '@timestamp': {type: 'date'}
-            }
-        };
-        request.put({
-            url: config.elasticUrl + '/_template/' + config.index,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-            strictSSL: !config.insecure
-        }, err => {
-            if (err) {
-                console.error('error on creating mapping', err.message);
-            }
-        });
-    }
-
     function log(source, msg) {
+        const d = new Date();
+
         const data = {
-            '@timestamp': (new Date()).getTime(),
+            '@timestamp': d.toISOString(),
             host: config.host,
             source,
             id: msg.process.pm_id,
@@ -56,7 +33,6 @@ pmx.initModule({}, (err, conf) => {
 
         const body = JSON.stringify(data);
 
-        const d = new Date();
         const date = d.getDate();
         if (date !== currentDate) {
             const index = config.index + '-' + d.getFullYear() + '.' + ('0' + (d.getMonth() + 1)).substr(-2) + '.' + ('0' + date).substr(-2);
@@ -83,8 +59,6 @@ pmx.initModule({}, (err, conf) => {
         if (err) {
             console.error('error on launching pm2 bus', err.message);
         }
-
-        createMapping();
 
         bus.on('log:err', data => {
             if (data.process.name !== 'pm2-elasticsearch-logger') {
