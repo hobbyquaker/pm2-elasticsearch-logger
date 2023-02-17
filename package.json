@@ -1,7 +1,8 @@
 {
-  "name": "pm2-elasticsearch-logger",
+  "name": "pm2-logger-elasticsearch",
   "version": "2.0.0",
   "description": "Send PM2 logs to Elasticsearch",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "camo-purge; xo",
@@ -9,11 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hobbyquaker/pm2-elasticsearch-logger.git"
+    "url": "git+https://github.com/tavsta/pm2-logger-elasticsearch.git"
   },
   "keywords": [
     "PM2",
     "Elasticsearch",
+    "Opensearch",
     "log"
   ],
   "config": {
@@ -25,16 +27,16 @@
   },
   "apps": [
     {
-      "name": "pm2-elasticsearch-logger",
+      "name": "pm2-logger-elasticsearch",
       "script": "index.js"
     }
   ],
-  "author": "Sebastian Raff <hobbyquaker@gmail.com>",
+  "author": "Henry <tavsta47@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hobbyquaker/pm2-elasticsearch-logger/issues"
+    "url": "https://github.com/tavsta/pm2-logger-elasticsearch/issues"
   },
-  "homepage": "https://github.com/hobbyquaker/pm2-elasticsearch-logger#readme",
+  "homepage": "https://github.com/tavsta/pm2-logger-elasticsearch#readme",
   "dependencies": {
     "pm2": "latest",
     "pmx": "latest",
